@@ -1,0 +1,5 @@
+# Ignore all VS Code generated files
+.vscode/
+
+# Ignore binary files
+bin/
