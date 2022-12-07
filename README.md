@@ -13,5 +13,6 @@ int main(int argc, char **argv)
   printf("%s", fstring_get(&s));
   
   fstring_free(&s);
+  return 0;
 }
 ```
