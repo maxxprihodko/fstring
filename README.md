@@ -60,3 +60,12 @@ void fstring_add_char(fstring_t *s, char c)
  */
 void fstring_add_string(fstring_t *s, const char* str)
 ```
+<br/>
+
+```c
+/* fstring_substring() - extracts a section of a flex string 
+ *      args: instance, start position, length
+ *      returns: substring
+ */
+fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length)
+```
