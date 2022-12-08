@@ -21,7 +21,6 @@ CTEST_TEARDOWN(fstring)
 
 CTEST2(fstring, add_char)
 {
-
     fstring_add_char(&data->s, 'A');
     ASSERT_STR("A", fstring_get(&data->s));
 };
