@@ -28,3 +28,31 @@ int main(int argc, char **argv)
 void fstring_init(fstring_t *s, int amount)
 ```
 <br/>
+```c
+/* fstring_free() - frees a flexible string instance */
+void fstring_free(fstring_t *s)
+```
+<br/>
+```c
+/* fstring_get() - gets the string contained in the flex string
+ *      args: instance
+ *      returns: pointer to characters
+ */
+char *fstring_get(fstring_t *s)
+```
+<br/>
+```c
+/* fstring_add_char() - appends a character to the flexible string
+ *      args: instance, character to append
+ *      returns: none
+ */
+void fstring_add_char(fstring_t *s, char c)
+```
+```c
+/* fstring_add_string() - appends a string to the flexible string
+ *      args: instance, string to append
+ *      returns: none
+ */
+void fstring_add_string(fstring_t *s, const char* str)
+```
+<br/>
