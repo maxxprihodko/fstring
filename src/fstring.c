@@ -67,7 +67,7 @@ void fstring_add_char(fstring_t *s, char c)
  *      args: instance, string to append
  *      returns: none
  */
-void fstring_add_string(fstring_t *s, char* str)
+void fstring_add_string(fstring_t *s, const char* str)
 {
     int32_t c;
 

@@ -25,6 +25,6 @@ void fstring_init(fstring_t *s, int32_t amount);
 void fstring_free(fstring_t *s);
 char *fstring_get(fstring_t *s);
 void fstring_add_char(fstring_t *s, char c);
-void fstring_add_string(fstring_t *s, char* str);
+void fstring_add_string(fstring_t *s, const char* str);
 
 #endif
