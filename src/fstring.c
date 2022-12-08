@@ -75,3 +75,26 @@ void fstring_add_string(fstring_t *s, const char* str)
     while ((c = *str++) != '\0')
         fstring_add_char(s, c);
 }
+
+/* fstring_substring() - extracts a section of a flex string 
+ *      args: instance, start position, length
+ *      returns: substring
+ */
+fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length)
+{
+    fstring_t new;
+    
+    /* Allocate space for our new string (+1 for \0) */
+    new.value = malloc(length + 1);
+    new.grow_by = CHUNK_SIZE;
+    new.used = length;
+    new.space = length + 1;
+
+    /* Loop through each character and copy it over */
+    int32_t c = 0;
+    int32_t end = start + length;
+    for (start; start < end; start++)
+        new.value[c++] = s->value[start];
+    
+    return new;
+}
