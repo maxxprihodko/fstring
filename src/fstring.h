@@ -2,6 +2,7 @@
 #define _FSTRING_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /* Amount of bytes the string will grow by in each reallocation. */
 #define CHUNK_SIZE 20
@@ -27,5 +28,7 @@ char *fstring_get(fstring_t *s);
 void fstring_add_char(fstring_t *s, char c);
 void fstring_add_string(fstring_t *s, const char* str);
 fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length);
+void fstring_append(fstring_t *dest, fstring_t *src);
+bool fstring_contains(fstring_t *s, const char *val);
 
 #endif

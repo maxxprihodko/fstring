@@ -1,7 +1,7 @@
 #include "fstring.h"
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /* string_init() - initializes an empty string instance
@@ -18,7 +18,12 @@ void fstring_init(fstring_t *s, int amount)
 }
 
 /* fstring_free() - frees a flexible string instance */
-void fstring_free(fstring_t *s) { free(s->value); }
+void fstring_free(fstring_t *s)
+{
+    /* Avoid pointless frees */
+    if (s->value)
+        free(s->value);
+}
 
 /* fstring_get() - gets the string contained in the flex string
  *      args: instance
@@ -67,7 +72,7 @@ void fstring_add_char(fstring_t *s, char c)
  *      args: instance, string to append
  *      returns: none
  */
-void fstring_add_string(fstring_t *s, const char* str)
+void fstring_add_string(fstring_t *s, const char *str)
 {
     int32_t c;
 
@@ -76,15 +81,17 @@ void fstring_add_string(fstring_t *s, const char* str)
         fstring_add_char(s, c);
 }
 
-/* fstring_substring() - extracts a section of a flex string 
+/* fstring_substring() - extracts a section of a flex string
  *      args: instance, start position, length
  *      returns: substring
  */
 fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length)
 {
     fstring_t new;
-    
-    /* Allocate space for our new string (+1 for \0) */
+
+    /* Allocate space for our new string (+1 for \0)
+     * TODO: I should probably make a function for this..?
+     */
     new.value = malloc(length + 1);
     new.grow_by = CHUNK_SIZE;
     new.used = length;
@@ -95,6 +102,44 @@ fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length)
     int32_t end = start + length;
     for (start; start < end; start++)
         new.value[c++] = s->value[start];
-    
+
     return new;
+}
+
+/* fstring_append() - appends a flex string to another flex string
+ *      args: destination, source
+ *      returns: none
+ */
+void fstring_append(fstring_t *dest, fstring_t *src)
+{
+    /* Ensure that we have valid values before we attempt to append them
+     * together. */
+    if (dest->value && src->value)
+        fstring_add_string(dest, fstring_get(src));
+}
+
+/* fstring_contains() - searches for a string within a flex string
+ *      args: flex string, value
+ *      returns: true if `s` contains `val`
+ */
+bool fstring_contains(fstring_t *s, const char *val)
+{
+    /* Save the string as we need it for later */
+    const char *str = fstring_get(s);
+    size_t len = strlen(val);
+
+    for (size_t start = 0, end = s->used - len - 1; end <= s->used;
+         end += ++start) {
+        /* Compare the new substring with the string we are searching for */
+        for (int i = start; i <= end; i++) {
+            /* If any characters are not identical, break */
+            if (str[i] != val[i - start])
+                break;
+            /* We know that str[i] == val[i] */
+            if (i == end)
+                return true;
+        }
+    }
+
+    return false;
 }

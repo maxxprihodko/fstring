@@ -9,14 +9,23 @@ int main(int argc, char **argv)
     return 0;
 }
 
-CTEST_DATA(fstring) { fstring_t s; };
+CTEST_DATA(fstring)
+{
+    fstring_t s;
+    fstring_t n;
+};
 
-CTEST_SETUP(fstring) { fstring_init(&data->s, 0); };
+CTEST_SETUP(fstring)
+{
+    fstring_init(&data->s, 0);
+    fstring_init(&data->n, 0);
+};
 
 CTEST_TEARDOWN(fstring)
 {
-    if (data->s.value)
-        fstring_free(&data->s);
+
+    fstring_free(&data->s);
+    fstring_free(&data->n);
 };
 
 CTEST2(fstring, add_char)
@@ -33,13 +42,31 @@ CTEST2(fstring, add_string)
 
 CTEST2(fstring, substring)
 {
-    fstring_t n;
-
     fstring_add_string(&data->s, "Hello, world!");
 
-    n = fstring_substring(&data->s, 0, 5);
-    ASSERT_STR("Hello", fstring_get(&n));
+    data->n = fstring_substring(&data->s, 0, 5);
+    ASSERT_STR("Hello", fstring_get(&data->n));
 
-    n = fstring_substring(&data->s, 3, 4);
-    ASSERT_STR("lo, ", fstring_get(&n));
+    data->n = fstring_substring(&data->s, 3, 4);
+    ASSERT_STR("lo, ", fstring_get(&data->n));
+};
+
+CTEST2(fstring, append)
+{
+    fstring_add_string(&data->n, "value");
+    fstring_add_string(&data->s, "some ");
+
+    fstring_append(&data->s, &data->n);
+    ASSERT_STR("some value", fstring_get(&data->s));
+};
+
+CTEST2(fstring, contains)
+{
+    fstring_add_string(&data->s, "Word");
+
+    ASSERT_EQUAL(true, fstring_contains(&data->s, "Wo"));
+    ASSERT_EQUAL(true, fstring_contains(&data->s, "or"));
+    ASSERT_EQUAL(true, fstring_contains(&data->s, "rd"));
+    
+    ASSERT_EQUAL(false, fstring_contains(&data->s, "xx"));
 };
