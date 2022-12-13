@@ -69,3 +69,12 @@ void fstring_add_string(fstring_t *s, const char* str)
  */
 fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length)
 ```
+<br/>
+
+```c
+/* fstring_contains() - searches for a string within a flex string
+ *      args: flex string, value
+ *      returns: true if `s` contains `val`
+ */
+bool fstring_contains(fstring_t *s, const char *val)
+```
