@@ -78,3 +78,19 @@ fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length)
  */
 bool fstring_contains(fstring_t *s, const char *val)
 ```
+
+```c
+/* fstring_empty() - returns true if string is empty
+ *      args: flex string
+ *      returns: true if empty
+ */
+bool fstring_empty(fstring_t *s)
+```
+
+```c
+/* fstring_clear() - 'clears' a flex string
+ *      args: flex string
+ *      returns: none
+ */
+void fstring_clear(fstring_t *s)
+```
