@@ -87,15 +87,7 @@ void fstring_add_string(fstring_t *s, const char *str)
  */
 fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length)
 {
-    fstring_t new;
-
-    /* Allocate space for our new string (+1 for \0)
-     * TODO: I should probably make a function for this..?
-     */
-    new.value = malloc(length + 1);
-    new.grow_by = CHUNK_SIZE;
-    new.used = length;
-    new.space = length + 1;
+    fstring_t new = {length + 1, length, malloc(length + 1), CHUNK_SIZE};
 
     /* Loop through each character and copy it over */
     int32_t c = 0;
