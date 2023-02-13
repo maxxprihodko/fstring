@@ -13,19 +13,21 @@ CTEST_DATA(fstring)
 {
     fstring_t s;
     fstring_t n;
+    fstring_t j;
 };
 
 CTEST_SETUP(fstring)
 {
     fstring_init(&data->s, 0);
     fstring_init(&data->n, 0);
+    fstring_init(&data->j, 0);
 };
 
 CTEST_TEARDOWN(fstring)
 {
-
     fstring_free(&data->s);
     fstring_free(&data->n);
+    fstring_free(&data->j);
 };
 
 CTEST2(fstring, add_char)
@@ -47,8 +49,8 @@ CTEST2(fstring, substring)
     data->n = fstring_substring(&data->s, 0, 5);
     ASSERT_STR("Hello", fstring_get(&data->n));
 
-    data->n = fstring_substring(&data->s, 3, 4);
-    ASSERT_STR("lo, ", fstring_get(&data->n));
+    data->j = fstring_substring(&data->s, 3, 4);
+    ASSERT_STR("lo, ", fstring_get(&data->j));
 };
 
 CTEST2(fstring, append)
@@ -67,12 +69,15 @@ CTEST2(fstring, contains)
     ASSERT_EQUAL(true, fstring_contains(&data->s, "Wo"));
     ASSERT_EQUAL(true, fstring_contains(&data->s, "or"));
     ASSERT_EQUAL(true, fstring_contains(&data->s, "rd"));
-    
+
     ASSERT_EQUAL(false, fstring_contains(&data->s, "xx"));
 };
 
 CTEST2(fstring, empty_clear)
 {
+    fstring_add_string(&data->s,
+                       "some very long string that will get destroyed");
+
     fstring_clear(&data->s);
 
     ASSERT_EQUAL(true, fstring_empty(&data->s));
