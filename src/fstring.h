@@ -30,5 +30,7 @@ void fstring_add_string(fstring_t *s, const char* str);
 fstring_t fstring_substring(fstring_t *s, int32_t start, int32_t length);
 void fstring_append(fstring_t *dest, fstring_t *src);
 bool fstring_contains(fstring_t *s, const char *val);
+bool fstring_empty(fstring_t *s);
+void fstring_clear(fstring_t *s);
 
 #endif

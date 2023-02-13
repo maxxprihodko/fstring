@@ -70,3 +70,11 @@ CTEST2(fstring, contains)
     
     ASSERT_EQUAL(false, fstring_contains(&data->s, "xx"));
 };
+
+CTEST2(fstring, empty_clear)
+{
+    fstring_clear(&data->s);
+
+    ASSERT_EQUAL(true, fstring_empty(&data->s));
+    ASSERT_STR("", fstring_get(&data->s));
+};

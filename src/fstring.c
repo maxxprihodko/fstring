@@ -143,3 +143,23 @@ bool fstring_contains(fstring_t *s, const char *val)
 
     return false;
 }
+
+/* fstring_empty() - returns true if string is empty
+ *      args: flex string
+ *      returns: true if empty
+ */
+bool fstring_empty(fstring_t *s) { return s->used == 0; }
+
+/* fstring_clear() - 'clears' a flex string
+ *      args: flex string
+ *      returns: none
+ */
+void fstring_clear(fstring_t *s)
+{
+    /* If string isn't empty set the first character to '\0'. Total space
+     * allocated will stay the same */
+    if (s->used) {
+        s->used = 0;
+        s->value[0] = '\0';
+    }
+}
