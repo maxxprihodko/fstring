@@ -10,5 +10,8 @@ tests: bin
 
 	./bin/test
 
+clean:
+	rm -rf bin
+
 bin:
 	mkdir $@

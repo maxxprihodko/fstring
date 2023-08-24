@@ -10,11 +10,24 @@
  *
  * Grows by CHUNK_SIZE if `amount` is 0
  */
-void fstring_init(fstring_t *s, int amount)
+void fstring_init(fstring_t *s, int32_t amount) { *s = fstring_new(amount); }
+
+/* fstring_new() - creates a new string instance
+ *      args: amount to grow by
+ *      returns: new string instance
+ *
+ * Grows by CHUNK_SIZE if `amount` is 0
+ */
+fstring_t fstring_new(int32_t amount)
 {
-    s->value = NULL;
-    s->space = s->used = 0;
-    s->grow_by = (amount > 0 ? amount : CHUNK_SIZE);
+    fstring_t s = {
+        0,                                 /* space */
+        0,                                 /* used */
+        NULL,                              /* value */
+        (amount > 0 ? amount : CHUNK_SIZE) /* grow_by */
+    };
+
+    return s;
 }
 
 /* fstring_free() - frees a flexible string instance */
