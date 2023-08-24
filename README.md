@@ -1,4 +1,4 @@
-# Stringlib
+# fstring
 A simple flexible string manipulation library. The goal of this library is to make it much easier to manipulate strings in C. I have provided a short codeblock that demonstrates how this library could be used.
 
 ```c
