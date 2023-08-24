@@ -8,5 +8,7 @@ TEST_SRCS = tests/main.c ${TEST_CORE}
 tests: bin
 	gcc -o bin/test $(TEST_SRCS) -lm -Wpragmas
 
+	./bin/test
+
 bin:
 	mkdir $@

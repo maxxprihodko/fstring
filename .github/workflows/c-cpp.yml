@@ -13,7 +13,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build tests
+    - name: Build and run tests
       run: make tests
-    - name: Run tests
-      run: ./bin/test
