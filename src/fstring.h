@@ -23,6 +23,7 @@ typedef struct fstring {
 } fstring_t;
 
 void fstring_init(fstring_t *s, int32_t amount);
+fstring_t fstring_new(int32_t amount);
 void fstring_free(fstring_t *s);
 char *fstring_get(fstring_t *s);
 void fstring_add_char(fstring_t *s, char c);
